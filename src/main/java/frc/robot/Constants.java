@@ -22,5 +22,15 @@ public final class Constants {
         public static final int kFrontRight = 3;
         
     }
+
+    public static final class Lift {
+        
+        public static final int kLeft = 4;
+        public static final int kRight = 5;
+
+        public static final double kUp = 0.8;
+        public static final double kDown = -0.8;
+
+    }
 }
 
