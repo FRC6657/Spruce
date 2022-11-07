@@ -5,12 +5,13 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.SupplyCurrentLimitConfiguration;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
-public class Lift {
+public class LiftSubsystem extends SubsystemBase {
     
-    private final TalonSRX mLeft = new TalonSRX(Constants.Lift.kLeft);
-    private final TalonSRX mRight = new TalonSRX(Constants.Lift.kRight);
+    private static TalonSRX mLeft = new TalonSRX(Constants.Lift.kLeft);
+    private static TalonSRX mRight = new TalonSRX(Constants.Lift.kRight);
     
     
     private void configureMotors() {
@@ -28,13 +29,17 @@ public class Lift {
         mRight.follow(mLeft);
     }
 
+    public LiftSubsystem() {
+        configureMotors();
+    }
+
     public void set (double percent) {
        mLeft.set(ControlMode.PercentOutput, percent);
 
     }
 
     public void stop() {
-        set(0);   
+        mLeft.set(ControlMode.PercentOutput, 0); 
 
     }
 

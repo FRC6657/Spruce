@@ -32,5 +32,14 @@ public final class Constants {
         public static final double kDown = -0.8;
 
     }
+
+    public static final class Intake {
+
+        public static final int kIntake = 6;
+
+        public static final double kForward = 1;
+        public static final double kBackward = -1;
+        
+    }
 }
 

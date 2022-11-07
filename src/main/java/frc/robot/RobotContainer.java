@@ -4,21 +4,27 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
-import frc.robot.Constants.Lift;
 import frc.robot.commands.DriverControl;
 import frc.robot.custom.CommandXboxController;
 import frc.robot.subsystems.Drivetrain;
+import frc.robot.subsystems.IntakeSubsystem;
+import frc.robot.subsystems.LiftSubsystem;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.StartEndCommand;
 
 
-public class RobotContainer {
+public class RobotContainer{
   
-  private final Drivetrain drivetrain = new Drivetrain();
-  private final Lift lift = new Lift();
-  private final CommandXboxController driver = new CommandXboxController(0); // to do make custom xbox
+  private Drivetrain drivetrain = new Drivetrain();
+  private LiftSubsystem lift = new LiftSubsystem();
+  private IntakeSubsystem intake = new IntakeSubsystem();
+
+  private final CommandXboxController driver = new CommandXboxController(0);
+  private final CommandXboxController operator = new CommandXboxController(1);
 
   public RobotContainer() {
 
@@ -34,8 +40,27 @@ public class RobotContainer {
       () -> cubicDeadband(driver.getRawAxis(XboxController.Axis.kLeftY.value), 0, 0.1),
       () -> cubicDeadband(driver.getRawAxis(XboxController.Axis.kRightX.value), 0, 0.1)
       ));
+
     
-    }
+    
+      operator.x().whenHeld(
+      new StartEndCommand(
+      () -> lift.up(),
+      lift::stop,
+      lift
+        )
+      );
+
+      driver.a().whenHeld(
+        new StartEndCommand(
+      () -> intake.forward(), 
+      intake::stop, 
+      intake)
+      );
+    
+  
+  
+  }
 
   private double cubicDeadband(double pInput, double pWeight, double pDeadband){
 
