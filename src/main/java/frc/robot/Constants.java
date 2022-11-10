@@ -41,5 +41,21 @@ public final class Constants {
         public static final double kBackward = -1;
         
     }
+
+    public static final class Shooter {
+
+        public static final int kShooter = 8;
+
+        public static final double kShootSpeed = 0.8;
+
+    }
+
+    public static final class Kicker {
+
+        public static final int kKicker = 7;
+
+        public static final double kKickSpeed = 0.8;
+
+    }
 }
 
