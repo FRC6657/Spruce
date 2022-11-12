@@ -13,6 +13,8 @@ public class Robot extends TimedRobot {
   private RobotContainer m_robotContainer;
   private Drivetrain drivetrain = new Drivetrain();
   
+  private Command mAutonomousCommand;
+
   @Override
   public void robotInit() {
    
@@ -32,7 +34,12 @@ public class Robot extends TimedRobot {
   public void disabledPeriodic() {}
 
   @Override
-  public void autonomousInit() {}
+  public void autonomousInit() {
+    mAutonomousCommand = m_robotContainer.getAutonomousCommand();
+    if (mAutonomousCommand != null) {
+      mAutonomousCommand.schedule();
+    }
+  }
 
   @Override
   public void autonomousPeriodic(){

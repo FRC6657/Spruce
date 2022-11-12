@@ -14,6 +14,7 @@ import frc.robot.subsystems.outtake.KickerSubsystem;
 import frc.robot.subsystems.outtake.ShooterSubsystem;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.StartEndCommand;
 
 
@@ -35,7 +36,6 @@ public class RobotContainer{
     configureButtonBindings();
 
   }
-
  
   private void configureButtonBindings() {
 
@@ -110,6 +110,27 @@ public class RobotContainer{
       output = 0;
     }
     return output;
+  }
+
+
+  public SequentialCommandGroup getAutonomousCommand(){
+
+    return new SequentialCommandGroup(
+      new ParallelCommandGroup(
+        new StartEndCommand(
+          shooter::shoot,
+          shooter::stop,
+          shooter
+        ),
+        new StartEndCommand(
+          kicker::run,
+          kicker::stop,
+          kicker
+        )
+      ).withTimeout(5),
+      new DriverControl(drivetrain,() -> -0.7, () -> 0d).withTimeout(3)
+    );
+
   }
 
   public void configureAutoChooser() {
