@@ -1,0 +1,28 @@
+{
+  "HALProvider": {
+    "RoboRIO": {
+      "window": {
+        "visible": true
+      }
+    }
+  },
+  "NTProvider": {
+    "types": {
+      "/FMSInfo": "FMSInfo",
+      "/LiveWindow/Drivetrain": "Subsystem",
+      "/LiveWindow/IntakeSubsystem": "Subsystem",
+      "/LiveWindow/KickerSubsystem": "Subsystem",
+      "/LiveWindow/LiftSubsystem": "Subsystem",
+      "/LiveWindow/ShooterSubsystem": "Subsystem",
+      "/LiveWindow/Ungrouped/Scheduler": "Scheduler"
+    }
+  },
+  "NetworkTables": {
+    "LiveWindow": {
+      "Ungrouped": {
+        "open": true
+      },
+      "open": true
+    }
+  }
+}

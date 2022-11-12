@@ -1,18 +1,17 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.TimedRobot;
-import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import frc.robot.subsystems.Drivetrain;
+
 
 
 public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
-  private Timer mTimer;
   private RobotContainer m_robotContainer;
-  private Drivetrain drivetrain = new Drivetrain();
   
+  private Command mAutonomousCommand;
+
   @Override
   public void robotInit() {
    
@@ -32,7 +31,12 @@ public class Robot extends TimedRobot {
   public void disabledPeriodic() {}
 
   @Override
-  public void autonomousInit() {}
+  public void autonomousInit() {
+    mAutonomousCommand = m_robotContainer.getAutonomousCommand();
+    if (mAutonomousCommand != null) {
+      mAutonomousCommand.schedule();
+    }
+  }
 
   @Override
   public void autonomousPeriodic(){

@@ -3,12 +3,14 @@ package frc.robot.subsystems.outtake;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
+import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
+
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class ShooterSubsystem extends SubsystemBase{
    
-    private static VictorSPX mShooter = new VictorSPX(Constants.Shooter.kShooter);
+    private static WPI_VictorSPX mShooter = new WPI_VictorSPX(Constants.Shooter.kShooter);
     
     
     private void configureMotors() {
@@ -30,12 +32,10 @@ public class ShooterSubsystem extends SubsystemBase{
 
     public void stop() {
         mShooter.set(ControlMode.PercentOutput, 0); 
-
     }
 
-    public void shoot() {
+    public void shoot() {        
         mShooter.set(ControlMode.PercentOutput, Constants.Shooter.kShootSpeed);
-
     }
 }   
 

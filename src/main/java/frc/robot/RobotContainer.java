@@ -5,10 +5,8 @@
 package frc.robot;
 
 
-import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import frc.robot.commands.DriverControl;
 import frc.robot.custom.CommandXboxController;
@@ -18,7 +16,6 @@ import frc.robot.subsystems.LiftSubsystem;
 import frc.robot.subsystems.outtake.KickerSubsystem;
 import frc.robot.subsystems.outtake.ShooterSubsystem;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.StartEndCommand;
@@ -35,8 +32,6 @@ public class RobotContainer{
   private final CommandXboxController driver = new CommandXboxController(0);
   private final CommandXboxController operator = new CommandXboxController(1);
 
-  private SendableChooser<SequentialCommandGroup[]> mAutoChooser = new SendableChooser<>();
-  private Timer mTimer = new Timer();
 
   //Current drive set up: 2 Xbox
 
@@ -45,7 +40,6 @@ public class RobotContainer{
     configureButtonBindings();
 
   }
-
  
   private void configureButtonBindings() {
 
@@ -108,52 +102,7 @@ public class RobotContainer{
       ); 
   
   }
-  public void configureAutoChooser() {
-      mAutoChooser.setDefaultOption("Nothing", new SequentialCommandGroup[]{null,null});
-
-      mAutoChooser.addOption("Fender Two Ball", new SequentialCommandGroup[]{
-        new SequentialCommandGroup(
-          // Launch 1 
-          new ParallelCommandGroup(
-            new StartEndCommand(
-              shooter::shoot,
-              shooter::stop,
-              shooter
-            ),
-            new StartEndCommand(
-              kicker::run,
-              kicker::stop, 
-              kicker
-            )),
-          // Launch 2 `
-          new ParallelCommandGroup(
-            new StartEndCommand(
-              shooter::shoot,
-              shooter::stop,
-              shooter
-            ),
-            new StartEndCommand(
-              kicker::run,
-              kicker::stop,
-              kicker
-          )).withTimeout(5),
-          new DriverControl(drivetrain,() -> -0.7, () -> 0d).withTimeout(3))
-      });
-
-  }
-
-  public SequentialCommandGroup getAutonomousCommand() {
-
-    int alliance = 0;
-    if(DriverStation.getAlliance() == Alliance.Red){
-      alliance = 0;
-    }else{
-      alliance = 1;
-    }
-    //return new RoutineTesting(drivetrain, intake, pistons, flywheel, hood, accelerator, vision.visionSupplier);
-    return mAutoChooser.getSelected()[alliance];
-    //return new BlueFenderTwoHanger(drivetrain, intake, pistons, flywheel, hood, accelerator);
-  }
+  
 
   private double cubicDeadband(double pInput, double pWeight, double pDeadband){
 
@@ -168,6 +117,31 @@ public class RobotContainer{
     return output;
   }
 
+
+  public SequentialCommandGroup getAutonomousCommand(){
+
+    return new SequentialCommandGroup(
+      new ParallelCommandGroup(
+        new StartEndCommand(
+          shooter::shoot,
+          shooter::stop,
+          shooter
+        ),
+        new StartEndCommand(
+          kicker::run,
+          kicker::stop,
+          kicker
+        )
+      ).withTimeout(5),
+      new DriverControl(drivetrain,() -> -0.7, () -> 0d).withTimeout(3)
+    );
+
+  }
+
+  public void configureAutoChooser() {
+
+    
+  }
 }
 
 

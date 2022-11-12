@@ -2,7 +2,7 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -10,10 +10,10 @@ import frc.robot.Constants;
 
 public class Drivetrain extends SubsystemBase {
   
-  private final TalonSRX mFrontRight = new TalonSRX(Constants.CAN.kFrontRight); 
-  private final TalonSRX mFrontLeft = new TalonSRX(Constants.CAN.kFrontLeft); 
-  private final TalonSRX mBackRight = new TalonSRX(Constants.CAN.kBackRight); 
-  private final TalonSRX mBackLeft = new TalonSRX(Constants.CAN.kBackLeft); 
+  private final WPI_TalonSRX mFrontRight = new WPI_TalonSRX(Constants.CAN.kFrontRight); 
+  private final WPI_TalonSRX mFrontLeft = new WPI_TalonSRX(Constants.CAN.kFrontLeft); 
+  private final WPI_TalonSRX mBackRight = new WPI_TalonSRX(Constants.CAN.kBackRight); 
+  private final WPI_TalonSRX mBackLeft = new WPI_TalonSRX(Constants.CAN.kBackLeft); 
 
   private final Timer mTimer = new Timer();
   
