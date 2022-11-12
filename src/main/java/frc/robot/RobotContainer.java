@@ -45,7 +45,7 @@ public class RobotContainer{
       () -> cubicDeadband(driver.getRawAxis(XboxController.Axis.kRightX.value), 0, 0.1)
       ));
     
-      operator.pov.down().whenHeld(
+      operator.pov.up().whenHeld(
         new StartEndCommand(
         () -> lift.up(),
         lift::stop,
@@ -53,7 +53,7 @@ public class RobotContainer{
           )
       );
 
-      operator.pov.up().whenHeld(
+      operator.pov.down().whenHeld(
         new StartEndCommand(
         () -> lift.down(),
         lift::stop,
@@ -95,11 +95,7 @@ public class RobotContainer{
         () -> intake.backward(), 
         intake::stop, 
         intake)
-      );
-
-    // Y - Shooter run
-    // P command group for kick and shooter
-    // Stop when released    
+      ); 
   
   }
 
@@ -116,4 +112,10 @@ public class RobotContainer{
     return output;
   }
 
+  public void configureAutoChooser() {
+
+    
+  }
 }
+
+

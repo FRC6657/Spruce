@@ -34,7 +34,5 @@ public class Drivetrain extends SubsystemBase {
     mBackLeft.set(ControlMode.PercentOutput, left);
 
   }
-
-  
-  
+ 
 }
