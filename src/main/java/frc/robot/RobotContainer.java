@@ -65,7 +65,7 @@ public class RobotContainer{
           )
       );
 
-      driver.a().whenHeld(
+      operator.a().whenHeld(
         new StartEndCommand(
         () -> intake.forward(), 
         intake::stop, 
@@ -94,7 +94,7 @@ public class RobotContainer{
       );
   
 
-      driver.b().whenHeld(
+      operator.b().whenHeld(
         new StartEndCommand(
         () -> intake.backward(), 
         intake::stop, 
