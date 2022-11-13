@@ -5,9 +5,8 @@
 package frc.robot;
 
 
-import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import frc.robot.Constants.Intake;
 import frc.robot.commands.DriverControl;
 import frc.robot.custom.CommandXboxController;
 import frc.robot.subsystems.Drivetrain;
@@ -122,6 +121,10 @@ public class RobotContainer{
 
     return new SequentialCommandGroup(
       new ParallelCommandGroup(
+        new StartEndCommand(
+          intake::forward, 
+          intake::stop, 
+          intake),
         new StartEndCommand(
           shooter::shoot,
           shooter::stop,
